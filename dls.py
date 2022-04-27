@@ -13,19 +13,24 @@ for x in graph:
     par[x] = '#'
 
 
-def dfs(node, parent, graph, visited):
+def dfs(node, parent, curDepth, maxDepth, graph, visited):
+    if(curDepth > maxDepth):
+        return
+
     print(node, end=" ")
     par[node] = parent
     visited.add(node)
+
     for x in graph[node]:
         if x not in visited:
-            dfs(x, node, graph, visited)
+            dfs(x, node, curDepth+1, maxDepth, graph, visited)
 
 
 startNode = input("Enter the start node : ")
 endNode = input("Enter the goal node : ")
+maxDepth = int(input("Enter the max depth : "))
 print("DFS path", end=' -> ')
-dfs(startNode, '#', graph, visited)
+dfs(startNode, '#', 0, maxDepth, graph, visited)
 
 if par[endNode] == '#':
     print("\nGoal node not found ")
